@@ -39,6 +39,12 @@ public class Card {
   @ColumnInfo(name = "hand_id",index = true)
   private Long handId;
 
+  @NonNull
+  private Suit suit;
+
+  @NonNull
+  private Rank rank;
+
   public long getId() {
     return id;
   }
@@ -79,6 +85,25 @@ public class Card {
 
   public void setHandId(Long handId) {
     this.handId = handId;
+  }
+
+
+  @NonNull
+  public Suit getSuit() {
+    return suit;
+  }
+
+  public void setSuit(@NonNull Suit suit) {
+    this.suit = suit;
+  }
+
+  @NonNull
+  public Rank getRank() {
+    return rank;
+  }
+
+  public void setRank(@NonNull Rank rank) {
+    this.rank = rank;
   }
 
   public enum Suit {

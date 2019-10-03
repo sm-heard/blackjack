@@ -12,7 +12,7 @@ import java.util.Date;
         @ForeignKey(
             entity = Card.class,
             childColumns = "marker_id",
-            parentColumns = "marker_id",
+            parentColumns = "card_id",
             onDelete = ForeignKey.NO_ACTION
         )
     }
@@ -25,7 +25,7 @@ public class Shoe {
   @ColumnInfo(index = true)
   @NonNull
   private Date created = new Date();
-  @ColumnInfo(name = "marker_id")
+  @ColumnInfo(name = "marker_id", index = true)
   private Long markerId;
 
   public long getId() {

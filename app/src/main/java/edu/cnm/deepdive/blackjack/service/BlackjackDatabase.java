@@ -6,6 +6,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
+import edu.cnm.deepdive.blackjack.model.dao.CardDao;
 import edu.cnm.deepdive.blackjack.model.dao.ShoeDao;
 import edu.cnm.deepdive.blackjack.model.entity.Card;
 import edu.cnm.deepdive.blackjack.model.entity.Card.Rank;
@@ -20,9 +21,13 @@ import java.util.Date;
 @TypeConverters(BlackjackDatabase.Converters.class)
 public abstract class BlackjackDatabase extends RoomDatabase {
 
+  protected BlackjackDatabase(){}
+
   private static Application applicationContext;
 
   public abstract ShoeDao getShoeDao();
+
+  public abstract CardDao getCardDao();
 
   public static void setApplicationContext(Application applicationContext) {
     BlackjackDatabase.applicationContext = applicationContext;
@@ -40,7 +45,7 @@ private static class InstanceHolder{
 
 }
 
-static class Converters{
+public static class Converters{
     @TypeConverter
   public Long dateToLong(Date date){
       return (date!=null) ? date.getTime() : null;
@@ -52,7 +57,7 @@ static class Converters{
 
     @TypeConverter
   public String enumToString(Enum value){
-      return (value!=null) ? value.toString();
+      return (value!=null) ? value.toString() : null;
     }
 
     @TypeConverter
