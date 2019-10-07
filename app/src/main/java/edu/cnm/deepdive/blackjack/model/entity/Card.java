@@ -24,26 +24,30 @@ import java.util.Date;
     }
 )
 public class Card {
+
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "card_id")
   private long id;
+
   @NonNull
   @ColumnInfo(index = true)
   private Date created = new Date();
+
   @NonNull
   @ColumnInfo(index = true)
-  private Date updated = new Date();
+  private Date updated  = new Date();
 
-  @ColumnInfo(name = "shoe_id",index = true)
+  @ColumnInfo(name = "shoe_id", index = true)
   private Long shoeId;
-  @ColumnInfo(name = "hand_id",index = true)
+
+  @ColumnInfo(name = "hand_id", index = true)
   private Long handId;
 
   @NonNull
-  private Suit suit;
+  private Rank rank;
 
   @NonNull
-  private Rank rank;
+  private Suit suit;
 
   public long getId() {
     return id;
@@ -87,6 +91,14 @@ public class Card {
     this.handId = handId;
   }
 
+  @NonNull
+  public Rank getRank() {
+    return rank;
+  }
+
+  public void setRank(@NonNull Rank rank) {
+    this.rank = rank;
+  }
 
   @NonNull
   public Suit getSuit() {
@@ -97,41 +109,13 @@ public class Card {
     this.suit = suit;
   }
 
-  @NonNull
-  public Rank getRank() {
-    return rank;
+  @Override
+  public String toString() {
+    return rank.getSymbol() + suit.getSymbol();
   }
-
-  public void setRank(@NonNull Rank rank) {
-    this.rank = rank;
-  }
-
-  public enum Suit {
-
-    CLUBS,
-    DIAMONDS,
-    HEARTS,
-    SPADES;
-
-    private static final String[] SYMBOLS = {"\u2663", "\u2662", "\u2661", "\u2660"};
-
-    public String getSymbol(){
-      return SYMBOLS[ordinal()];
-    }
-
-    public Color getColor(){
-      return (ordinal() % 3 == 0) ? Color.BLACK: Color.RED;
-    }
-
-    public enum Color{
-      BLACK, RED;
-    }
-
-
-  }
-
 
   public enum Rank {
+
     ACE,
     TWO,
     THREE,
@@ -146,11 +130,36 @@ public class Card {
     QUEEN,
     KING;
 
-    private static final String[] SYMBOLS = {"A","2","3","4","5","6","7","8","9","10","J","Q","K"};
-    public String getSymbol(){
+    private static final String[] SYMBOLS =
+        {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
+
+    public String getSymbol() {
       return SYMBOLS[ordinal()];
     }
+
   }
 
+  public enum Suit {
+
+    CLUBS,
+    DIAMONDS,
+    HEARTS,
+    SPADES;
+
+    private static final String[] SYMBOLS = {"\u2663", "\u2662", "\u2661", "\u2660"};
+
+    public String getSymbol() {
+      return SYMBOLS[ordinal()];
+    }
+
+    public Color getColor() {
+      return (ordinal() % 3 == 0) ? Color.BLACK : Color.RED;
+    }
+
+    public enum Color {
+      BLACK, RED;
+    }
+
+  }
 
 }
