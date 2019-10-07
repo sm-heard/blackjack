@@ -7,7 +7,6 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 import java.util.Date;
 
-
 @Entity(
     foreignKeys = {
         @ForeignKey(
@@ -23,16 +22,18 @@ public class Hand {
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "hand_id")
   private long id;
+
   @NonNull
   @ColumnInfo(index = true)
   private Date created = new Date();
+
   @NonNull
   @ColumnInfo(index = true)
   private Date updated = new Date();
 
   private boolean dealer;
 
-  @ColumnInfo(name = "round_id",index = true)
+  @ColumnInfo(name = "round_id", index = true)
   private long roundId;
 
   private int wager;
@@ -98,7 +99,7 @@ public class Hand {
     this.outcome = outcome;
   }
 
-  public enum Outcome{
+  public enum Outcome {
     WIN, LOSS, PUSH;
   }
 
