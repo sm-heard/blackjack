@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void setupFragments() {
-    Fragment dealerFragment = new HandFragment();
-    Fragment playerFragment = new HandFragment();
+    Fragment dealerFragment = new DealerHandFragment();
+    Fragment playerFragment = new PlayerHandFragment();
     FragmentManager manager = getSupportFragmentManager();
     manager.beginTransaction()
         .replace(R.id.dealer_hand, dealerFragment)
