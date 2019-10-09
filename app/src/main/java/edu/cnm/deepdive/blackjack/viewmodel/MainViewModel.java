@@ -26,6 +26,8 @@ public class MainViewModel extends AndroidViewModel {
 
   private final BlackjackDatabase database;
   private long shoeId;
+  private long markerId;
+  private boolean shuffleNeeded;
   private Random rng;
   private MutableLiveData<Long> roundId;
   private LiveData<RoundWithDetails> round;
@@ -80,16 +82,17 @@ public class MainViewModel extends AndroidViewModel {
     int startIndex = cards.size() * 2 / 3;
     int endIndex = cards.size() * 3 / 4;
     int markerPosition = startIndex + rng.nextInt(endIndex - startIndex);
-    Card marker = cards.get(markerPosition);
-    shoe.setMarkerId(marker.getId());
+    List<Long> cardIds = database.getCardDao().insert(cards);
+    markerId = cardIds.get(markerPosition);
+    shoe.setMarkerId(markerId);
     database.getShoeDao().update(shoe);
-    database.getCardDao().insert(cards);
+    shuffleNeeded = false;
   }
 
   public void startRound() {
     new Thread(() -> {
       Round round = new Round();
-      if (shoeId == 0) { // TODO Add check of shuffle needed.
+      if (shoeId == 0 || shuffleNeeded) {
         createShoe();
       }
       round.setShoeId(shoeId);
@@ -102,10 +105,7 @@ public class MainViewModel extends AndroidViewModel {
       long[] handIds = database.getHandDao().insert(dealer, player);
       for (long handId : handIds) {
         for (int i = 0; i < 2; i++) {
-          Card card = database.getCardDao().getTopCardInShoe(shoeId);
-          card.setShoeId(null);
-          card.setHandId(handId);
-          database.getCardDao().update(card);
+          Card card = getTopCard(handId);
         }
       }
       this.roundId.postValue(roundId);
@@ -118,12 +118,21 @@ public class MainViewModel extends AndroidViewModel {
     new Thread(() -> {
       CardDao dao = database.getCardDao();
       Long handId = playerHandId.getValue();
-      Card card = dao.getTopCardInShoe(shoeId);
-      card.setShoeId(null);
-      card.setHandId(handId);
-      dao.update(card);
+      Card card = getTopCard(handId);
       playerHandId.postValue(handId);
     }).start();
+  }
+
+  private Card getTopCard(long handId) {
+    CardDao cardDao = database.getCardDao();
+    Card card = cardDao.getTopCardInShoe(shoeId);
+    card.setShoeId(null);
+    card.setHandId(handId);
+    cardDao.update(card);
+    if (card.getId() == markerId) {
+      shuffleNeeded = true;
+    }
+    return card;
   }
 
 }

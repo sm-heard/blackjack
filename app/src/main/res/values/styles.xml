@@ -8,4 +8,22 @@
     <item name="colorAccent">@color/colorAccent</item>
   </style>
 
+  <style name="SoftValue" parent="TextAppearance.AppCompat.Large">
+    <item name="android:textColor">#FF000000</item>
+    <item name="android:textStyle">normal</item>
+    <item name="android:textSize">36sp</item>
+  </style>
+
+  <style name="HardValue" parent="SoftValue">
+    <item name="android:textStyle">bold</item>
+  </style>
+
+  <style name="BustedValue" parent="HardValue">
+    <item name="android:textColor">#FFC00000</item>
+  </style>
+
+  <style name="BlackjackValue" parent="HardValue">
+    <item name="android:textColor">#FF00A000</item>
+  </style>
+
 </resources>
