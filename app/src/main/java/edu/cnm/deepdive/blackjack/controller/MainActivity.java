@@ -24,17 +24,7 @@ public class MainActivity extends AppCompatActivity {
     });
     Button addDeck = findViewById(R.id.start_round);
     addDeck.setOnClickListener((view) -> viewModel.startRound());
-    setupFragments();
   }
 
-  private void setupFragments() {
-    Fragment dealerFragment = new DealerHandFragment();
-    Fragment playerFragment = new PlayerHandFragment();
-    FragmentManager manager = getSupportFragmentManager();
-    manager.beginTransaction()
-        .replace(R.id.dealer_hand, dealerFragment)
-        .replace(R.id.player_hand, playerFragment)
-        .commit();
-  }
 
 }

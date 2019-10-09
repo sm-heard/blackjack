@@ -1,14 +1,14 @@
 package edu.cnm.deepdive.blackjack.controller;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 import edu.cnm.deepdive.blackjack.R;
@@ -19,6 +19,7 @@ import edu.cnm.deepdive.blackjack.viewmodel.MainViewModel;
 public abstract class HandFragment extends Fragment {
 
   private ArrayAdapter<Card> adapter;
+  private MainViewModel viewModel;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,7 +34,7 @@ public abstract class HandFragment extends Fragment {
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    MainViewModel viewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
+    viewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
     handToObserve(viewModel).observe(this, (hand) -> {
       adapter.clear();
       adapter.addAll(hand.getCards());
@@ -43,5 +44,9 @@ public abstract class HandFragment extends Fragment {
   public abstract LiveData<HandWithCards> handToObserve(MainViewModel viewModel);
 
   public abstract int getLayout();
+
+  protected MainViewModel getViewModel() {
+    return viewModel;
+  }
 
 }

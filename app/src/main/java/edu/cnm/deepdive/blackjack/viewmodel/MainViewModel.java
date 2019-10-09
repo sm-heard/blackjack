@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
+import edu.cnm.deepdive.blackjack.model.dao.CardDao;
 import edu.cnm.deepdive.blackjack.model.entity.Card;
 import edu.cnm.deepdive.blackjack.model.entity.Card.Rank;
 import edu.cnm.deepdive.blackjack.model.entity.Card.Suit;
@@ -110,6 +111,18 @@ public class MainViewModel extends AndroidViewModel {
       this.roundId.postValue(roundId);
       this.dealerHandId.postValue(handIds[0]);
       this.playerHandId.postValue(handIds[1]);
+    }).start();
+  }
+
+  public void hitPlayer() {
+    new Thread(() -> {
+      CardDao dao = database.getCardDao();
+      Long handId = playerHandId.getValue();
+      Card card = dao.getTopCardInShoe(shoeId);
+      card.setShoeId(null);
+      card.setHandId(handId);
+      dao.update(card);
+      playerHandId.postValue(handId);
     }).start();
   }
 
