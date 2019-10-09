@@ -24,25 +24,37 @@
       android:id="@+id/busted_value"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:visibility="gone"
       style="@style/BustedValue"/>
 
     <TextView
       android:id="@+id/hard_value"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:visibility="gone"
       style="@style/HardValue"/>
+
+    <TextView
+      android:id="@+id/hard_soft_divider"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:visibility="gone"
+      android:text="@string/hard_soft_divider"
+      style="@style/SoftValue"/>
 
     <TextView
       android:id="@+id/soft_value"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:visibility="gone"
       style="@style/SoftValue"/>
 
     <TextView
       android:id="@+id/blackjack_value"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="21"
+      android:text="@string/blackjack_value"
+      android:visibility="gone"
       style="@style/BlackjackValue"/>
 
   </LinearLayout>

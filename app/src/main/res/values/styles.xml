@@ -11,7 +11,9 @@
   <style name="SoftValue" parent="TextAppearance.AppCompat.Large">
     <item name="android:textColor">#FF000000</item>
     <item name="android:textStyle">normal</item>
-    <item name="android:textSize">36sp</item>
+    <item name="android:textSize">@dimen/hand_value_size</item>
+    <item name="android:includeFontPadding">false</item>
+    <item name="android:layout_margin">@dimen/hand_value_margin</item>
   </style>
 
   <style name="HardValue" parent="SoftValue">

@@ -135,4 +135,14 @@ public class MainViewModel extends AndroidViewModel {
     return card;
   }
 
+  public void startDealer() {
+    long handId = dealerHandId.getValue();
+    HandWithCards dealer = dealerHand.getValue();
+    List<Card> cards = dealer.getCards();
+    while (dealer.getHardValue() < 17 || dealer.getSoftValue() < 18) {
+      cards.add(getTopCard(handId));
+
+    }
+  }
+
 }

@@ -5,10 +5,12 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:padding="@dimen/activity_padding"
   tools:context=".controller.MainActivity">
-<fragment
-  android:name="edu.cnm.deepdive.blackjack.controller.DealerHandFragment"
-  android:id="@+id/dealer_hand"
+
+  <fragment
+    android:name="edu.cnm.deepdive.blackjack.controller.DealerHandFragment"
+    android:id="@+id/dealer_hand"
     android:layout_width="0dp"
     android:layout_height="0dp"
     app:layout_constraintTop_toTopOf="parent"
